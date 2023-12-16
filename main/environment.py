@@ -1,6 +1,7 @@
 # main/environment.py
 import networkx as nx
 from config import RNJesus
+import matplotlib.pyplot as plt
 
 class Environment:
     """
@@ -71,3 +72,19 @@ class Environment:
         Actualiza el estado del mapa. Aquí se puede añadir lógica para cambios dinámicos en el mapa.
         """
         pass
+
+    def visualize_map(self):
+        G = self.map
+        pos = nx.spring_layout(G)  # Puedes experimentar con diferentes layouts
+
+        # Preparar etiquetas de nodos con recursos y costos
+        node_labels = {node: f"C:{G.nodes[node]['cost']:.2f}\n"
+                              f"F:{G.nodes[node]['food']:.2f}\n"
+                              f"S:{G.nodes[node]['science']:.2f}\n"
+                              f"T:{G.nodes[node]['toxic']:.2f}" for node in G.nodes()}
+        
+        # Dibujar el grafo
+        nx.draw(G, pos, with_labels=True, node_color='skyblue', edge_color='grey')
+        nx.draw_networkx_labels(G, pos, labels=node_labels, font_size=8)
+
+        plt.show()
