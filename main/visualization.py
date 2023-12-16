@@ -5,6 +5,7 @@ from .environment import Environment
 import networkx as nx
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
+import numpy as np
 
 class MapVisualizer3D:
     def __init__(self, environment):
@@ -28,8 +29,17 @@ class MapVisualizer3D:
         plt.show()
 
     def _calculate_node_position(self, node_id):
-        # Implementación de una función para calcular la posición de los nodos en 3D
-        # Esto es solo un ejemplo, debes ajustar según tus necesidades
-        return (node_id % 5, (node_id // 5) % 5, node_id // 25)  # Posición 3D básica
+        num_nodes = self.environment.num_nodes
+        # Distribución uniforme de ángulos y alturas
+        phi = np.arccos(1 - 2 * (node_id + 0.5) / num_nodes)  # Ángulo polar
+        theta = np.pi * (1 + 5**0.5) * (node_id + 0.5)  # Ángulo azimutal
+
+        x = np.cos(theta) * np.sin(phi)
+        y = np.sin(theta) * np.sin(phi)
+        z = np.cos(phi)
+
+        # Escalar para ajustar el tamaño de la esfera
+        scale = 10
+        return (scale * x, scale * y, scale * z)
 
 # Resto del código...

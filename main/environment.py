@@ -57,7 +57,7 @@ class Environment:
         """
         for a in range(self.num_nodes):
             for b in range(a + 1, self.num_nodes):
-                if RNJesus.rng_scale() <= 0.5:  # Probabilidad de crear una arista
+                if RNJesus.rng_scale() <= 0.3:  # Probabilidad de crear una arista
                     G.add_edge(a, b)
 
     def map_state(self) -> str:
