@@ -3,6 +3,7 @@ from .config import RNJesus
 import networkx as nx
 import matplotlib.pyplot as plt
 
+
 class Environment:
     """
     Clase para representar el entorno del juego, incluyendo la generación y manejo del mapa.
@@ -55,7 +56,7 @@ class Environment:
         """
         for a in range(self.num_nodes):
             for b in range(a + 1, self.num_nodes):
-                if RNJesus.rng_scale() < 0.5:  # Probabilidad de crear una arista
+                if RNJesus.rng_scale() < 0.4:  # Probabilidad de crear una arista
                     G.add_edge(a, b)
 
     def map_state(self) -> str:
@@ -75,16 +76,17 @@ class Environment:
 
     def visualize_map(self):
         G = self.map
-        pos = nx.spring_layout(G)  # Puedes experimentar con diferentes layouts
+        pos = nx.spring_layout(G)  # O puedes usar nx.circular_layout si prefieres
 
-        # Preparar etiquetas de nodos con recursos y costos
-        #node_labels = {node: f"C:{G.nodes[node]['cost']:.2f}\n"
-        #                      f"F:{G.nodes[node]['food']:.2f}\n"
-        #                      f"S:{G.nodes[node]['science']:.2f}\n"
-        #                      f"T:{G.nodes[node]['toxic']:.2f}" for node in G.nodes()}
-        
-        # Dibujar el grafo
-        nx.draw(G, pos, with_labels=False, node_color='skyblue', edge_color='grey')
-        nx.draw_networkx_labels(G, pos, font_size=8)
+        # Configurar el layout y opciones de dibujo
+        fig, ax = plt.subplots(figsize=(8, 8))
+        node_opts = {"node_size": 500, "node_color": "white", "edgecolors": "black", "linewidths": 2.0}
+        nx.draw_networkx_nodes(G, pos, **node_opts)
+        nx.draw_networkx_labels(G, pos, font_size=14)
 
+        # Dibujar aristas con un color fijo
+        nx.draw_networkx_edges(G, pos, edge_color="grey", width=2.0)
+
+        ax.set_axis_off()
+        fig.tight_layout()
         plt.show()
