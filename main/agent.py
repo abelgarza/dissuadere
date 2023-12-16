@@ -1,6 +1,5 @@
 import json
 import joblib
-from environment import Environment
 
 class Agent:
     def __init__(self, name: str, is_ai: bool, ai_model_path: str = None):
@@ -11,7 +10,7 @@ class Agent:
         self.communication_log = []
         self.incentive_score = 0
 
-    def observe_environment(self, environment: Environment):
+    def observe_environment(self):
         # Logic to observe and update current state
         pass
 
