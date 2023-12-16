@@ -1,4 +1,4 @@
-# config.py
+# main/config.py
 import random
 
 class RNJesus:

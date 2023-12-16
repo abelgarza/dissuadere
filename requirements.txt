@@ -1,1 +1,8 @@
+pandas
+numpy
+matplotlib
+
+pygame
 networkx
+
+joblib
