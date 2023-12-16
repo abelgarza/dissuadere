@@ -1,3 +1,5 @@
+# run.py
+
 # Crear dos agentes, A y B
 A = Agente("A")
 B = Agente("B")

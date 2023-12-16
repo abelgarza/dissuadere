@@ -1,3 +1,5 @@
+# main\enviroment.py
+
 class Environment:
     def __init__(self):
         self.map = self.generate_map()

@@ -1,3 +1,5 @@
+# main\game.py
+
 class Game:
     def __init__(self, agents, environment):
         self.agents = agents
