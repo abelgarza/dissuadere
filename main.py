@@ -1,3 +1,4 @@
+# main.py
 import tkinter as tk
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from main.game import Game
@@ -26,12 +27,23 @@ class Application:
     def start_game(self):
         num_nodes = 25  # Valor que podría obtenerse de la UI
         environment = Environment(num_nodes)
-        agents = [Agent("Agent1"), Agent("Agent2")]  # Configuración de agentes
+        agents = [Agent("Agent1", 1, 1), Agent("Agent2", 1, 1)]  # Configuración de agentes
         self.game = Game(agents, environment)
         self.visualizer.set_environment(environment)
 
-        # Iniciar simulación y actualizar visualización
-        self.update_visualization()
+        self.update_visualization()  # Iniciar la actualización de la visualización
+
+    def update_visualization(self):
+        # Aquí, actualiza el estado del juego y luego la visualización
+        if self.game:
+            self.game.run_turn()  # Actualizar el estado del juego
+
+            self.visualizer.update(self.game)  # Actualizar la visualización
+            self.canvas.draw()
+
+            # Para actualizar continuamente, podrías usar un temporizador
+            # Por ejemplo, actualizar cada segundo
+            self.root.after(1000, self.update_visualization)
 
 if __name__ == "__main__":
     root = tk.Tk()
