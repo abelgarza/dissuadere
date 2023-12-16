@@ -1,4 +1,2 @@
 # Carga los módulos
-from main import agent
-from main import enviroment
-from main import game
+from main import agent, enviroment, game
