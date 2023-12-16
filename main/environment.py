@@ -43,9 +43,9 @@ class Environment:
         
         return {
             "cost": RNJesus.rng_scale(),
-            "food": RNJesus.rng_scale(),
-            "science": RNJesus.rng_scale(),
-            "toxic": RNJesus.rng_scale()
+            "income": RNJesus.rng_scale(),
+            "damage": RNJesus.rng_scale(),
+            "science": RNJesus.rng_scale()
         }
 
     def create_edges(self, G: nx.Graph) -> None:
@@ -74,20 +74,3 @@ class Environment:
         Actualiza el estado del mapa. Aquí se puede añadir lógica para cambios dinámicos en el mapa.
         """
         pass
-
-    def visualize_map(self):
-        G = self.map
-        pos = nx.circular_layout(G)  # O puedes usar nx.spring_layout si prefieres
-
-        # Configurar el layout y opciones de dibujo
-        fig, ax = plt.subplots(figsize=(8, 8))
-        node_opts = {"node_size": 500, "node_color": "white", "edgecolors": "black", "linewidths": 2.0}
-        nx.draw_networkx_nodes(G, pos, **node_opts)
-        nx.draw_networkx_labels(G, pos, font_size=14)
-
-        # Dibujar aristas con un color fijo
-        nx.draw_networkx_edges(G, pos, edge_color="grey", width=2.0)
-
-        ax.set_axis_off()
-        fig.tight_layout()
-        plt.show()

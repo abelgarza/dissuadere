@@ -1,6 +1,7 @@
 # main\game.py
 import pygame
 from .environment import Environment
+from .visualization import MapVisualizer3D
 from .agent import Agent
 
 class Game:
@@ -24,15 +25,18 @@ class Game:
             agent.take_action(self.environment)
 
     def run_game(self):
-        """
-        Ejecuta el ciclo principal del juego.
-        """
+        visualizer = MapVisualizer3D(self.environment)
+
         while self.is_running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.is_running = False
 
             self.run_turn()
+
+            # Llamar al renderizador para mostrar el mapa
+            visualizer.render()
+
             pygame.display.flip()
 
 def main_menu(game: Game):
