@@ -2,8 +2,9 @@ import json
 import joblib
 
 class Agent:
-    def __init__(self, name: str, is_ai: bool, ai_model_path: str = None):
+    def __init__(self, name: str, health: float, is_ai: bool, ai_model_path: str = None):
         self.name = name
+        self.health = health
         self.is_ai = is_ai
         self.ai_model = joblib.load(ai_model_path) if is_ai else None
         self.current_state = {}
