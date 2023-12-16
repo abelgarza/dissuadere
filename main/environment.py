@@ -76,7 +76,7 @@ class Environment:
 
     def visualize_map(self):
         G = self.map
-        pos = nx.spring_layout(G)  # O puedes usar nx.circular_layout si prefieres
+        pos = nx.circular_layout(G)  # O puedes usar nx.spring_layout si prefieres
 
         # Configurar el layout y opciones de dibujo
         fig, ax = plt.subplots(figsize=(8, 8))
