@@ -10,7 +10,7 @@ class Environment:
     def generate_map(self):
         G = nx.Graph()
         for i in range(self.num_nodes):
-            G.add_node(i, resources=self.assign_resources(), cost=RNJesus.rng_scale())
+            G.add_node(i, resources=self.assign_resources())
 
         # Asegurando que la red sea conexa
         for a in range(self.num_nodes):
@@ -22,10 +22,12 @@ class Environment:
 
     def assign_resources(self):
         return {
+            "cost": RNJesus.rng_scale(),
             "food": RNJesus.rng_scale(),
             "science": RNJesus.rng_scale(),
             "toxic": RNJesus.rng_scale()
         }
+
 
     def map_state(self):
         # Retorna el estado actual del mapa para observación

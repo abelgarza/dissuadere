@@ -1,7 +1,7 @@
 # main\agent.py
 
 
-from main import enviroment
+from main import environment
 
 class Agent:
     def __init__(self, name):
