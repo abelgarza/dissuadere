@@ -1,45 +1,26 @@
-# main/visualization.py
-
-from .environment import Environment
-
-import networkx as nx
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
-import numpy as np
+import networkx as nx
 
 class MapVisualizer3D:
-    def __init__(self, environment):
+    def __init__(self):
+        self.fig, self.ax = plt.subplots()
+
+    def set_environment(self, environment):
         self.environment = environment
 
-    def render(self):
-        fig = plt.figure(figsize=(10, 8))
-        ax = fig.add_subplot(111, projection='3d')
+    def update(self, game):
+        self.ax.clear()
+        G = self.environment.map  # El grafo de la red
 
-        # Colocación de los nodos
-        for node, data in self.environment.map.nodes(data=True):
-            x, y, z = self._calculate_node_position(node)
-            ax.scatter(x, y, z, color='b', s=100)  # Puedes cambiar el tamaño y color
+        # Dibujar los nodos y las aristas del grafo
+        pos = nx.spring_layout(G)  # Puedes cambiar a otro layout si lo prefieres
+        nx.draw_networkx_nodes(G, pos, ax=self.ax, node_color='lightblue', edgecolors='black')
+        nx.draw_networkx_edges(G, pos, ax=self.ax, edge_color='gray')
 
-        # Dibujar aristas
-        for edge in self.environment.map.edges():
-            start_pos = self._calculate_node_position(edge[0])
-            end_pos = self._calculate_node_position(edge[1])
-            ax.plot([start_pos[0], end_pos[0]], [start_pos[1], end_pos[1]], [start_pos[2], end_pos[2]], color='gray')
+        # Dibujar los agentes en sus respectivas posiciones
+        for agent in game.agents:
+            if agent.position in pos:
+                nx.draw_networkx_nodes(G, pos, ax=self.ax, nodelist=[agent.position], node_color='red')
 
+        self.ax.set_title("Estado Actual del Juego")
         plt.show()
-
-    def _calculate_node_position(self, node_id):
-        num_nodes = self.environment.num_nodes
-        # Distribución uniforme de ángulos y alturas
-        phi = np.arccos(1 - 2 * (node_id + 0.5) / num_nodes)  # Ángulo polar
-        theta = np.pi * (1 + 5**0.5) * (node_id + 0.5)  # Ángulo azimutal
-
-        x = np.cos(theta) * np.sin(phi)
-        y = np.sin(theta) * np.sin(phi)
-        z = np.cos(phi)
-
-        # Escalar para ajustar el tamaño de la esfera
-        scale = 10
-        return (scale * x, scale * y, scale * z)
-
-# Resto del código...
